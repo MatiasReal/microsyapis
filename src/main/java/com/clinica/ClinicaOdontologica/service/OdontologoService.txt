@@ -1,0 +1,43 @@
+package com.clinica.ClinicaOdontologica.service;
+import com.clinica.ClinicaOdontologica.model.Odontologo;
+
+import java.util.List;
+
+public class OdontologoService implements IService<Odontologo>{
+    IDao<Odontologo> odontoDao;
+
+    public OdontologoService(OdontologoDAOH2 odontologoDAOH2) {
+        this.odontoDao = odontologoDAOH2;
+    }
+
+
+    @Override
+    public Odontologo guardar(Odontologo odontologo) {
+        return null;
+    }
+
+    @Override
+    public void eliminar(int id) {
+
+    }
+
+    @Override
+    public Odontologo actualizar(Odontologo odontologo) {
+        return null;
+    }
+
+    @Override
+    public Odontologo buscar(int id) {
+        return odontoDao.buscar(id);
+    }
+
+    @Override
+    public Odontologo buscarCampo(String nombreCampo, String valor) {
+        return null;
+    }
+
+    @Override
+    public List<Odontologo> buscarTodos() {
+        return List.of();
+    }
+}
