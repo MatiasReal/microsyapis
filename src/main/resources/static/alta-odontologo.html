@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Odontológica - Alta Odontólogo</title>
+</head>
+<body>
+<main>
+    <h1>Alta Odontólogo</h1>
+    <form method="POST" action="/odontologos">
+
+        <div>
+            <label for="nombre-odontologo">Nombre</label>
+            <input type="text" id="nombre-odontologo" name="nombre-odontologo">
+        </div>
+        <div>
+            <label for="apellido-odontologo">Apellido</label>
+            <input type="text" id="apellido-odontologo" name="apellido-odontologo">
+        </div>
+        <div>
+            <label for="matricula-odontologo">Matrícula</label>
+            <input type="number" id="matricula-odontologo" name="matricula-odontologo">
+        </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+</main>
+
+<script src="/js/turnoScript.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+package com.clinica.ClinicaOdontologica;
+
+import com.clinica.ClinicaOdontologica.dao.BD;
+import com.clinica.ClinicaOdontologica.dao.OdontologoDAOH2;
+import com.clinica.ClinicaOdontologica.model.Odontologo;
+import com.clinica.ClinicaOdontologica.service.OdontologoService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class OdontologoTest {
+
+    @Test
+    public void buscarOdontologo(){
+        //dado
+        BD.crearTablas();
+        OdontologoService odontologoService = new OdontologoService(new OdontologoDAOH2());
+        //cuando
+        Odontologo odontologo = odontologoService.buscar(1);
+        //entonces
+        Assertions.assertNotNull(odontologo);
+    }
+
+}

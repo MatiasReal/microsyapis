@@ -1,17 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Crear un nuevo turno</title>
 </head>
 <body>
-  <main>
-    <h1>Crear un nuevo turno</h1>
-    <form method="POST" action="/turnos">
-      <label for="pacientes-list">Paciente</label>
-      <select name="pacientes-list" id="pacientes-list"></select>
-    </form>
-  </main>
-  <script src="/js/turnoScript.js"></script>
+<main>
+  <h1>Crear un nuevo turno</h1>
+
+  <form method="POST" action="/turnos">
+
+    <div>
+      <label for="paciente-select">Seleccionar Paciente:</label>
+      <select name="id-paciente" id="paciente-select" required>
+        <option value="" disabled selected>Cargando pacientes...</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="odontologo-select">Seleccionar Odontólogo:</label>
+      <select name="id-odontologo" id="odontologo-select" required>
+        <option value="" disabled selected>Cargando odontólogos...</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="fecha-turno">Fecha y Hora del Turno:</label>
+      <input type="datetime-local" id="fecha-turno" name="fecha-turno" required>
+    </div>
+
+    <button type="submit">Guardar Turno</button>
+  </form>
+</main>
+
+<script src="/js/turnoScript.js"></script>
 </body>
 </html>
