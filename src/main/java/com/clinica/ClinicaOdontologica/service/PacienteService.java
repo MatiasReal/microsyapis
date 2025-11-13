@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class PacienteService implements IService<Paciente> {
+public class PacienteService implements IService<Paciente, Long> {
     @Autowired
     private PacienteRepository pacienteRepository;
 
@@ -18,7 +19,24 @@ public class PacienteService implements IService<Paciente> {
     }
 
     @Override
+    public Optional<Paciente> findById(Long id) {
+        return pacienteRepository.findById(id);
+    }
+
+    @Override
     public void saveOne(Paciente paciente) {
-        pacienteRepository.save(paciente);
+        Paciente p = pacienteRepository.save(paciente);
+        System.out.println("Paciente (" + p.getNombre() + ") persistido en la base de datos.");
+    }
+
+    @Override
+    public void deleteOne(Long id) {
+        pacienteRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateOne(Paciente paciente) {
+        Paciente p = pacienteRepository.save(paciente);
+        System.out.println("Paciente (" + p.getNombre() + ") actualizado.");
     }
 }

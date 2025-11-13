@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clínica Odontológica - Alta paciente</title>
+</head>
+<body>
+  <main>
+    <h1>Alta paciente</h1>
+    <form method="POST" action="/pacientes">
+      <div>
+        <label for="nombre-paciente">Nombre</label>
+        <input type="text" id="nombre-paciente" name="nombre-paciente">
+      </div>
+      <div>
+        <label for="apellido-paciente">Apellido</label>
+        <input type="text" id="apellido-paciente" name="apellido-paciente">
+      </div>
+      <div>
+        <label for="telefono-paciente">Telefono</label>
+        <input type="number" id="telefono-paciente" name="telefono-paciente">
+      </div>
+      <div>
+        <label for="correo-paciente">Correo</label>
+        <input type="email" id="correo-paciente" name="correo-paciente">
+      </div>
+      <div>
+        <label for="cedula-paciente">Cedula</label>
+        <input type="number" id="cedula-paciente" name="cedula-paciente">
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+  <script src="/js/turnoScript.js"></script>
+</body>
+</html>
