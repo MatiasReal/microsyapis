@@ -7,7 +7,7 @@
 <body>
   <main>
     <h1>Actualizar paciente</h1>
-    <form method="PUT" action="/pacientes">
+    <form id="pacienteForm">
       <div>
         <label for="id-paciente">Identificador</label>
         <input type="text" id="id-paciente" name="id-paciente">
@@ -32,23 +32,37 @@
         <label for="cedula-paciente">Cedula</label>
         <input type="number" id="cedula-paciente" name="cedula-paciente">
       </div>
-      <button type="button" onclick="handleEliminarPaciente">Eliminar</button>
+      <button type="button" onclick="handleEliminarPaciente()">Eliminar</button>
       <button type="submit">Actualizar</button>
     </form>
   </main>
   <script>
+    const pacienteForm = document.getElementById('pacienteForm');
+    pacienteForm.addEventListener('submit', handleActualizarPaciente);
+
     async function handleEliminarPaciente() {
       const confirmAction = window.confirm("Estás seguro de que quiere eliminar al paciente?");
       if(confirmAction){
-        const status = await fetch("/pacientes", {
+        const idPaciente = document.getElementById("id-paciente").value;
+        const status = await fetch(`/pacientes/${idPaciente}`, {
           method: "DELETE",
         })
-        window.alert("Paciente eliminado con exito!");
-        location.replace("/");
-        if (status.status !== 201){
+        if (status.status !== 200){
           window.alert("El paciente no fue eliminado");
+        } else {
+          window.alert("Paciente eliminado con exito!");
+          location.replace("/");
         }
       }
+    }
+
+    async function handleActualizarPaciente(e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      await fetch(`/pacientes/${e.target["id-paciente"].value}`, {
+        method: "PUT",
+        body: formData,
+      })
     }
   </script>
 </body>

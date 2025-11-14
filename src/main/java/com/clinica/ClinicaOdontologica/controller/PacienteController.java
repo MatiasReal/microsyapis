@@ -9,6 +9,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,10 +41,10 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> delete(@RequestBody MultiValueMap<String, String> formData) {
+    @DeleteMapping("/{idParam}")
+    public ResponseEntity<String> delete(@PathVariable String idParam) {
         try {
-            Long id = Long.parseLong(formData.get("id-paciente").get(0));
+            Long id = Long.parseLong(idParam);
             pacienteService.deleteOne(id);
             return ResponseEntity.ok("Paciente eliminado exitosamente");
         } catch (Exception e) {
@@ -52,20 +53,28 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @PutMapping
-    public ResponseEntity<String> update(@RequestBody MultiValueMap<String, String> formData) {
+    @PutMapping(path = "/{idParam}", consumes = "multipart/form-data")
+    public ResponseEntity<String> update(@PathVariable String idParam, @RequestParam MultiValueMap<String, String> formData) {
         try {
-            Optional<Paciente> pacienteEncontrado = pacienteService.findById(Long.parseLong(formData.get("id-paciente").get(0)));
+            System.out.println(idParam);
+            System.out.println(formData);
+            Optional<Paciente> pacienteEncontrado = pacienteService.findById(Long.parseLong(idParam));
             if(pacienteEncontrado.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente no encontrado");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             Paciente paciente = pacienteEncontrado.get();
             paciente.setNombre(formData.get("nombre-paciente").get(0));
             paciente.setApellido(formData.get("apellido-paciente").get(0));
             paciente.setEmail(formData.get("correo-paciente").get(0));
-            paciente.setCedula(Integer.parseInt(formData.get("cedula-paciente").get(0)));
-            paciente.setNumeroContacto(Integer.parseInt(formData.get("telefono-paciente").get(0)));
-            pacienteService.saveOne(paciente);
+            String cedula;
+            if (!(cedula = formData.get("cedula-paciente").get(0)).isEmpty()) {
+                paciente.setCedula(Integer.parseInt(cedula));
+            }
+            String numeroContacto;
+            if(!(numeroContacto = formData.get("telefono-paciente").get(0)).isEmpty()) {
+                paciente.setNumeroContacto(Integer.parseInt(numeroContacto));
+            }
+            pacienteService.updateOne(paciente);
             return ResponseEntity.ok("Paciente creado exitosamente");
         } catch (Exception e) {
             e.printStackTrace();

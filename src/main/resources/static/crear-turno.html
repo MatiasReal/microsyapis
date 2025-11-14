@@ -8,18 +8,17 @@
 <main>
   <h1>Crear un nuevo turno</h1>
 
-  <form method="POST" action="/turnos">
-
+  <form id="turnos-form">
     <div>
-      <label for="paciente-select">Seleccionar Paciente:</label>
-      <select name="id-paciente" id="paciente-select" required>
+      <label for="pacientes-list">Seleccionar Paciente:</label>
+      <select name="id-paciente" id="pacientes-list" required>
         <option value="" disabled selected>Cargando pacientes...</option>
       </select>
     </div>
 
     <div>
-      <label for="odontologo-select">Seleccionar Odontólogo:</label>
-      <select name="id-odontologo" id="odontologo-select" required>
+      <label for="odontologos-list">Seleccionar Odontólogo:</label>
+      <select name="id-odontologo" id="odontologos-list" required>
         <option value="" disabled selected>Cargando odontólogos...</option>
       </select>
     </div>

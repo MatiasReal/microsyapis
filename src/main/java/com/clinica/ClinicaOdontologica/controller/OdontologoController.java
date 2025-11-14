@@ -30,8 +30,10 @@ public class OdontologoController {
             Odontologo odontologo = new Odontologo();
             odontologo.setNombre(formData.get("nombre-odontologo").get(0));
             odontologo.setApellido(formData.get("apellido-odontologo").get(0));
-            odontologo.setMatricula(Integer.parseInt(formData.get("matricula-odontologo").get(0)));
-
+            String matricula;
+            if(!(matricula = formData.get("matricula-odontologo").get(0)).isEmpty()){
+                odontologo.setMatricula(Integer.parseInt(matricula));
+            }
             odontologoService.saveOne(odontologo);
             return ResponseEntity.ok("Odontólogo creado exitosamente");
         } catch (Exception e) {
@@ -40,10 +42,10 @@ public class OdontologoController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> delete(@RequestBody MultiValueMap<String, String> formData) {
+    @DeleteMapping("/{idParam}")
+    public ResponseEntity<String> delete(@PathVariable String idParam,@RequestBody MultiValueMap<String, String> formData) {
         try {
-            Long id = Long.parseLong(formData.get("id-odontologo").get(0));
+            Long id = Long.parseLong(idParam);
             odontologoService.deleteOne(id);
             return ResponseEntity.ok("Odontólogo eliminado exitosamente");
         } catch (Exception e) {
@@ -52,22 +54,22 @@ public class OdontologoController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @PutMapping
-    public ResponseEntity<String> update(@RequestBody MultiValueMap<String, String> formData) {
+    @PutMapping(path = "/{idParam}", consumes = "multipart/form-data")
+    public ResponseEntity<String> update(@PathVariable String idParam, @RequestParam MultiValueMap<String, String> formData) {
         try {
-            Optional<Odontologo> odontologoEncontrado = odontologoService.findById(Long.parseLong(formData.get("id-odontologo").get(0)));
+            Optional<Odontologo> odontologoEncontrado = odontologoService.findById(Long.parseLong(idParam));
 
             if(odontologoEncontrado.isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Odontólogo no encontrado");
             }
-
             Odontologo odontologo = odontologoEncontrado.get();
-
             odontologo.setNombre(formData.get("nombre-odontologo").get(0));
             odontologo.setApellido(formData.get("apellido-odontologo").get(0));
-            odontologo.setMatricula(Integer.parseInt(formData.get("matricula-odontologo").get(0)));
-
-            odontologoService.saveOne(odontologo);
+            String matricula;
+            if(!(matricula = formData.get("matricula-odontologo").get(0)).isEmpty()){
+                odontologo.setMatricula(Integer.parseInt(matricula));
+            }
+            odontologoService.updateOne(odontologo);
 
             return ResponseEntity.ok("Odontólogo actualizado exitosamente");
         } catch (Exception e) {
