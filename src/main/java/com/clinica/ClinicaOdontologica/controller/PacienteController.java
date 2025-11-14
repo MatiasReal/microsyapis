@@ -1,4 +1,5 @@
 package com.clinica.ClinicaOdontologica.controller;
+import com.clinica.ClinicaOdontologica.data.PacienteDTO;
 import com.clinica.ClinicaOdontologica.entity.Paciente;
 import com.clinica.ClinicaOdontologica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pacientes")
@@ -20,9 +22,16 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> findAll() {
-        return ResponseEntity.ok(pacienteService.findAll());
+    public ResponseEntity<List<PacienteDTO>> findAll() {
+
+        List<Paciente> pacienteEntidad = pacienteService.findAll();
+        List<PacienteDTO> pacientesDTO = new ArrayList<>();
+        for (Paciente paciente : pacienteEntidad) {
+            pacientesDTO.add(pacienteService.convertEntityToDTO(paciente));
+        }
+        return ResponseEntity.ok(pacientesDTO);
     }
+
 
     @PostMapping(consumes = "application/x-www-form-urlencoded")
     public ResponseEntity<String> save(@RequestBody MultiValueMap<String, String> formData) {

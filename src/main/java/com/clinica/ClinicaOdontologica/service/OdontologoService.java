@@ -1,5 +1,6 @@
 package com.clinica.ClinicaOdontologica.service;
 
+import com.clinica.ClinicaOdontologica.data.OdontologoDTO;
 import com.clinica.ClinicaOdontologica.entity.Odontologo;
 import com.clinica.ClinicaOdontologica.entity.Paciente;
 import com.clinica.ClinicaOdontologica.repository.OdontologoRepository;
@@ -13,6 +14,14 @@ import java.util.Optional;
 public class OdontologoService implements IService<Odontologo, Long>{
     @Autowired
     OdontologoRepository odontologoRepository;
+
+    public OdontologoDTO convertEntityToDTO(Odontologo odontologo) {
+        OdontologoDTO odontologoDTO = new OdontologoDTO();
+        odontologoDTO.setNombre(odontologo.getNombre());
+        odontologoDTO.setApellido(odontologo.getApellido());
+        odontologoDTO.setMatricula(odontologo.getMatricula());
+        return odontologoDTO;
+    }
 
     @Override
     public List<Odontologo> findAll() {

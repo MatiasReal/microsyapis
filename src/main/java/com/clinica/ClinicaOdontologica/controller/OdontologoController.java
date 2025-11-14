@@ -1,5 +1,6 @@
 package com.clinica.ClinicaOdontologica.controller;
 
+import com.clinica.ClinicaOdontologica.data.OdontologoDTO;
 import com.clinica.ClinicaOdontologica.entity.Odontologo;
 import com.clinica.ClinicaOdontologica.service.OdontologoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/odontologos")
@@ -18,10 +20,16 @@ public class OdontologoController {
 
     @Autowired
     private OdontologoService odontologoService;
-
+    //listo👌🏻
     @GetMapping
-    public ResponseEntity<List<Odontologo>> findAll() {
-        return ResponseEntity.ok(odontologoService.findAll());
+    public ResponseEntity<List<OdontologoDTO>> findAll() {
+
+        List<Odontologo> odontologosEntidad = odontologoService.findAll();
+
+        List<OdontologoDTO> odontologosDTOs = odontologosEntidad.stream()
+                .map(odontologo -> odontologoService.convertEntityToDTO(odontologo))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(odontologosDTOs);
     }
 
     @PostMapping(consumes = "application/x-www-form-urlencoded")

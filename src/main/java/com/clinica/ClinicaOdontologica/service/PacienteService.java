@@ -1,5 +1,8 @@
 package com.clinica.ClinicaOdontologica.service;
 
+import com.clinica.ClinicaOdontologica.data.OdontologoDTO;
+import com.clinica.ClinicaOdontologica.data.PacienteDTO;
+import com.clinica.ClinicaOdontologica.entity.Odontologo;
 import com.clinica.ClinicaOdontologica.entity.Paciente;
 import com.clinica.ClinicaOdontologica.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,17 @@ import java.util.Optional;
 public class PacienteService implements IService<Paciente, Long> {
     @Autowired
     private PacienteRepository pacienteRepository;
+
+
+    public PacienteDTO convertEntityToDTO(Paciente paciente) {
+        PacienteDTO pacienteDTO = new PacienteDTO();
+        pacienteDTO.setNombre(paciente.getNombre());
+        pacienteDTO.setApellido(paciente.getApellido());
+        pacienteDTO.setEmail(paciente.getEmail());
+        pacienteDTO.setNumeroContacto(paciente.getNumeroContacto());
+        pacienteDTO.setCedula(paciente.getCedula());
+        return pacienteDTO;
+    }
 
     @Override
     public List<Paciente> findAll() {

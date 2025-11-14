@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -23,14 +24,12 @@ public class Turno {
     @ManyToOne
     @JoinColumn(name = "odontologo_id", nullable = false)
     private Odontologo odontologo;
-    private LocalDate fecha;
-    private LocalTime hora;
+    private LocalDateTime fechaHora;
 
-    public Turno(Paciente paciente, Odontologo odontologo, LocalDate fecha, LocalTime hora) {
+    public Turno(Paciente paciente, Odontologo odontologo, LocalDate fecha, LocalDateTime fechaHora) {
         super();
         this.paciente = paciente;
         this.odontologo = odontologo;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaHora=fechaHora;
     }
 }
