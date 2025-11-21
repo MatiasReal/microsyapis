@@ -1,0 +1,187 @@
+/* =========================================
+   Variables y Reset
+   ========================================= */
+:root {
+    --primary-color: #0288d1; /* Azul médico profesional */
+    --primary-hover: #0277bd;
+    --danger-color: #d32f2f;  /* Rojo para eliminar */
+    --danger-hover: #c62828;
+    --bg-color: #f4f6f8;      /* Gris muy suave de fondo */
+    --card-bg: #ffffff;
+    --text-color: #37474f;
+    --border-color: #cfd8dc;
+    --radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* =========================================
+   Contenedor Principal (Tarjeta)
+   ========================================= */
+/* Aplica a <main> para los formularios y simulamos en index */
+main, body > h1, body > a {
+    width: 100%;
+    max-width: 500px; /* Ancho ideal de lectura */
+}
+
+/* Estilo tipo "Card" para los formularios */
+main {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   Tipografía
+   ========================================= */
+h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+label {
+    display: block; /* Fuerza al label a ocupar su propia línea */
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+/* Enlace del Index */
+body > a {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+/* =========================================
+   Enlaces como Botones (Ghost Buttons)
+   ========================================= */
+a {
+    display: inline-block;       /* Comportamiento de caja para aceptar padding */
+    text-decoration: none;       /* Quita el subrayado típico */
+    color: var(--primary-color); /* Texto azul */
+    background-color: transparent;
+    border: 2px solid var(--primary-color); /* El contorno clave */
+    padding: 0.75rem 1.5rem;     /* Relleno interno para darle cuerpo */
+    border-radius: var(--radius);
+    font-weight: 700;            /* Letra un poco más gruesa */
+    text-align: center;
+    transition: all 0.3s ease;   /* Suaviza el cambio de color al pasar el mouse */
+    margin-top: 1rem;            /* Separación */
+
+    /* Para asegurar que no sea más ancho que el contenedor móvil */
+    max-width: 100%;
+}
+
+/* Efecto Hover (Al pasar el mouse) */
+a:hover {
+    background-color: var(--primary-color); /* Se rellena de azul */
+    color: #ffffff;                         /* El texto pasa a blanco */
+    transform: translateY(-2px);            /* Se eleva ligeramente */
+    box-shadow: 0 4px 8px rgba(2, 136, 209, 0.2); /* Sombra suave */
+}
+
+/* Efecto Active (Al hacer click) */
+a:active {
+    transform: translateY(0);    /* Vuelve a su sitio al presionar */
+    box-shadow: none;
+}
+
+/* =========================================
+   Formularios e Inputs
+   ========================================= */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Apuntamos a los divs que envuelven tus inputs */
+form > div {
+    margin-bottom: 1.2rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    font-size: 1rem;
+    background-color: #fafafa;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(2, 136, 209, 0.1);
+}
+
+/* =========================================
+   Botones
+   ========================================= */
+button {
+    display: block;
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 0.5rem;
+    color: white;
+}
+
+/* Botón de Enviar / Actualizar (Submit) */
+button[type="submit"] {
+    background-color: var(--primary-color);
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-hover);
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Botón de Eliminar (type="button" con onclick) */
+button[type="button"] {
+    background-color: var(--card-bg);
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+    margin-bottom: 1rem; /* Separación si hay dos botones */
+}
+
+button[type="button"]:hover {
+    background-color: #ffebee; /* Rojo muy pálido */
+}
