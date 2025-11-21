@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public class TurnoDTO {
     private Long pacienteId;
+
     private Long odontologoId;
     private LocalDateTime fechaHora;
 }

@@ -17,6 +17,7 @@ public class OdontologoService implements IService<Odontologo, Long>{
 
     public OdontologoDTO convertEntityToDTO(Odontologo odontologo) {
         OdontologoDTO odontologoDTO = new OdontologoDTO();
+        odontologoDTO.setId(odontologo.getId());
         odontologoDTO.setNombre(odontologo.getNombre());
         odontologoDTO.setApellido(odontologo.getApellido());
         odontologoDTO.setMatricula(odontologo.getMatricula());

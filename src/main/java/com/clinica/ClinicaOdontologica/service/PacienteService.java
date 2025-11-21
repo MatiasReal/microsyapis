@@ -19,6 +19,7 @@ public class PacienteService implements IService<Paciente, Long> {
 
     public PacienteDTO convertEntityToDTO(Paciente paciente) {
         PacienteDTO pacienteDTO = new PacienteDTO();
+        pacienteDTO.setId(paciente.getId());
         pacienteDTO.setNombre(paciente.getNombre());
         pacienteDTO.setApellido(paciente.getApellido());
         pacienteDTO.setEmail(paciente.getEmail());

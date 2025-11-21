@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Turnos - Clinica Odontológica</title>
+</head>
+<body>
+  <main>
+    <h1>Lista de turnos</h1>
+    <ul id="turnos"></ul>
+  </main>
+</body>
+<script>
+  const ulListaTurnos = document.getElementById('turnos');
+
+  async function poblarListaTurnos() {
+    const turnosData = await fetch("/turnos");
+    const turnoslist = await turnosData.json();
+    ulListaTurnos.innerHTML = turnoslist.map(t => (
+            `
+              <li id="${turno.id}-item-turno">
+              ${}
+              </li>
+            `
+    ))
+  }
+</script>
+</html>
