@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class TurnoDTO {
-    private Long pacienteId;
-
-    private Long odontologoId;
+    private PacienteDTO paciente;
+    private OdontologoDTO odontologo;
     private LocalDateTime fechaHora;
 }

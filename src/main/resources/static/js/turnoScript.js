@@ -9,8 +9,8 @@ async function handleCreacionTurno(e) {
     const fechaSeleccionada = e.target["fecha-turno"].value;
 
     const datosTurno = {
-        pacienteId: parseInt(e.target["pacientes-list"].value),
-        odontologoId: parseInt(e.target["odontologos-list"].value),
+        paciente: JSON.parse(e.target["pacientes-list"].value),
+        odontologo: JSON.parse(e.target["odontologos-list"].value),
         fechaHora: fechaSeleccionada
     }
 
@@ -47,7 +47,7 @@ async function populatePacientes() {
         if (!pacientsReqData.ok) throw new Error("Failed to fetch pacientes");
         const jsonData = await pacientsReqData.json();
         pacientesList.innerHTML = jsonData.map(p => (`
-            <option value=${p.id}>${p.apellido}, ${p.nombre} - ${p.cedula}
+            <option value=${JSON.stringify(p)}>${p.apellido}, ${p.nombre} - ${p.cedula}
             </option>
         `)).join("\n");
     } catch(err) {
@@ -62,7 +62,7 @@ async function populateOdontologos() {
         const jsonData = await odontologosReqData.json();
         if (jsonData.length) {
             odontologosList.innerHTML = jsonData.map(o => (`
-                <option value=${o.id}>${o.apellido}, ${o.nombre} - ${o.matricula}
+                <option value=${JSON.stringify(o)}>${o.apellido}, ${o.nombre} - ${o.matricula}
                 </option>
             `)).join("\n");
         }

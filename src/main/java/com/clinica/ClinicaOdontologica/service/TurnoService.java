@@ -24,13 +24,20 @@ public class TurnoService implements IService<Turno, Long> {
 
     @Autowired
     private OdontologoService dontologoService;
+    @Autowired
+    private OdontologoService odontologoService;
 
 
     public TurnoDTO convertEntityToDTO(Turno turno) {
         TurnoDTO turnoDTO = new TurnoDTO();
-        turnoDTO.setFechaHora(turnoDTO.getFechaHora());
-        turnoDTO.setPacienteId(turnoDTO.getPacienteId());
-        turnoDTO.setOdontologoId(turnoDTO.getOdontologoId());
+        Optional<Paciente> paciente = pacienteService.findById(turno.getPaciente().getId());
+        Optional<Odontologo> odontologo = dontologoService.findById(turno.getOdontologo().getId());
+        if(paciente.isEmpty() || odontologo.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+        turnoDTO.setFechaHora(turno.getFechaHora());
+        turnoDTO.setPaciente(pacienteService.convertEntityToDTO(paciente.get()));
+        turnoDTO.setOdontologo(odontologoService.convertEntityToDTO(odontologo.get()));
         return turnoDTO;
     }
 
@@ -64,8 +71,8 @@ public class TurnoService implements IService<Turno, Long> {
 
     public Turno convertDTOToEntity(TurnoDTO turnoDTO) {
         Turno turno = new Turno();
-        Optional<Paciente> paciente = pacienteService.findById(turnoDTO.getPacienteId());
-        Optional<Odontologo> odontologo = dontologoService.findById(turnoDTO.getOdontologoId());
+        Optional<Paciente> paciente = pacienteService.findById(turnoDTO.getPaciente().getId());
+        Optional<Odontologo> odontologo = dontologoService.findById(turnoDTO.getOdontologo().getId());
         if(paciente.isEmpty() || odontologo.isEmpty()) {
             throw new EmptyResultDataAccessException(1);
         }

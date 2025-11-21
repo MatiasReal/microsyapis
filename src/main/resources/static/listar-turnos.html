@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Turnos - Clinica Odontológica</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <main>
@@ -18,11 +19,13 @@
     const turnoslist = await turnosData.json();
     ulListaTurnos.innerHTML = turnoslist.map(t => (
             `
-              <li id="${turno.id}-item-turno">
-              ${}
+              <li id="${t.paciente.id + t.odontologo.id + t.fechaHora}-item-turno">
+              <p>${t.fechaHora} - Paciente: ${t.paciente.apellido} | Odontologo: ${t.odontologo.apellido}</p>
               </li>
             `
     ))
   }
+
+  poblarListaTurnos()
 </script>
 </html>

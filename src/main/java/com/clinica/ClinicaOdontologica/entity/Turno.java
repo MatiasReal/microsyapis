@@ -26,7 +26,7 @@ public class Turno {
     private Odontologo odontologo;
     private LocalDateTime fechaHora;
 
-    public Turno(Paciente paciente, Odontologo odontologo, LocalDate fecha, LocalDateTime fechaHora) {
+    public Turno(Paciente paciente, Odontologo odontologo, LocalDateTime fechaHora) {
         super();
         this.paciente = paciente;
         this.odontologo = odontologo;

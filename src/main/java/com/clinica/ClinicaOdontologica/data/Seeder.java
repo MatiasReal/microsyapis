@@ -2,8 +2,10 @@ package com.clinica.ClinicaOdontologica.data;
 
 import com.clinica.ClinicaOdontologica.entity.Odontologo;
 import com.clinica.ClinicaOdontologica.entity.Paciente;
+import com.clinica.ClinicaOdontologica.entity.Turno;
 import com.clinica.ClinicaOdontologica.repository.OdontologoRepository;
 import com.clinica.ClinicaOdontologica.repository.PacienteRepository;
+import com.clinica.ClinicaOdontologica.repository.TurnoRepository;
 import com.clinica.ClinicaOdontologica.service.OdontologoService;
 import com.clinica.ClinicaOdontologica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.context.event.ContextRefreshedEvent; // Importar el e
 import org.springframework.context.event.EventListener; // Importar la anotación
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class Seeder {
@@ -22,11 +26,15 @@ public class Seeder {
     @Autowired
     private OdontologoRepository odontologoRepository;
 
+    @Autowired
+    private TurnoRepository turnoRepository;
+
 
     @EventListener(ContextRefreshedEvent.class) // Listener de contexto de Spring esté listo
     public void init() {
         populatePacientes();
         populateOdontologos();
+        populateTurnos();
     }
 
     public void populatePacientes() {
@@ -55,5 +63,29 @@ public class Seeder {
                 System.out.println("Odontologo: " + o.getNombre() + " Guardado con exito...");
             }
         }
+    }
+
+    public void populateTurnos() {
+        if (turnoRepository.count()==0)
+        {
+            LocalDateTime fechaActual = LocalDateTime.now();
+            Optional<Paciente> paciente=pacienteRepository.findById(1L);
+            Optional<Odontologo> odontologo=odontologoRepository.findById(1L);
+            if(paciente.isEmpty() || odontologo.isEmpty()) {
+                throw new RuntimeException("No se puede guardar el turno");
+            }
+            Paciente p = paciente.get();
+            Odontologo o = odontologo.get();
+
+            List<Turno> datosTurnos = List.of(
+              new Turno(p, o, fechaActual)
+            );
+            for (Turno t: datosTurnos){
+                turnoRepository.save(t);
+                System.out.println("Turno guardado con exito!");
+            }
+        }
+
+
     }
 }
